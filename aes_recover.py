@@ -1,7 +1,7 @@
 import aes
 import collections
 import itertools
-from utils import hex
+from utils import hex, compare, dump_diff
 
 # FAULT_PATTERNS[idx] is the fault pattern that appears when a byte of the
 # state column idx is faulted.
@@ -48,38 +48,6 @@ class Fault:
         self.output = output
         self.column = column
 
-
-
-# Returns the list of different indices
-def compare(ref, faulted):
-    ret = []
-    for i in range(len(ref)):
-        ref_b = ref[i]
-        faulted_b = faulted[i]
-
-        if ref_b != faulted_b:
-            ret.append(i)
-
-    return ret
-
-
-def dump_diff(ref, faulted, diffs):
-    print(f"Reference : {hex(ref)}")
-    print(f"Faulted   : {hex(faulted)}")
-    print(f"Difference: ", end="")
-
-    diff_idx = 0
-    for i in range(len(ref)):
-        if diff_idx < len(diffs) and diffs[diff_idx] == i:
-            diff_idx += 1
-            print("--", end="")
-        else:
-            print("  ", end="")
-
-    print()
-
-    for d in diffs:
-        print(f"  Byte {d:2} faulted: {hex(ref[d])} != {hex(faulted[d])}")
 
 
 def recognize_fault_pattern(diff):
