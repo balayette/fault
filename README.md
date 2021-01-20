@@ -1,3 +1,3 @@
-# AES-128 differential fault analysis
+# AES-128 and DES differential fault analysis
 
-Perform differential fault analysis on AES-128.
+Perform differential fault analysis on AES-128 and DES.
